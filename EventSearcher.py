@@ -12,7 +12,7 @@ class EventSearcher:
     def add_feedsource(self, feed_source):
         self.feeders.append(feed_source)
 
-    def get_event(self, word_vector, date_str):
+    def get_event(self, word_vector, date_str, number_of_candidates):
 
         articles = list()
         vectors = list()
@@ -34,6 +34,13 @@ class EventSearcher:
 
         # find the most similar article for the input flag_vector
         clustering = Clustering(vectors, flag_vector)
-        index, value = clustering.get_articles()
+        sorted_scores = clustering.get_articles()
 
-        return value, articles[index]['url']
+
+        list_of_url_score_tuples = list()
+        for index, score in sorted_scores:
+            list_of_url_score_tuples.append({"score":score, "url":articles[index]['url']})
+
+        list_of_url_score_tuples = list_of_url_score_tuples[:number_of_candidates]
+
+        return list_of_url_score_tuples

@@ -23,11 +23,16 @@ def init_server():
 
 @app.route("/get_event")
 def get_event():
-    date = request.args['date']
-    words = json.loads(request.args['words'])
+    try:
+        date = request.args['date']
+        words = json.loads(request.args['words'])
+        number_of_candidates = json.loads(request.args['max'])
 
-    score, url = event_searcher.get_event(words, date)
-    return Response(json.dumps({'score':score, 'url':url}))
+        list_of_events = event_searcher.get_event(words, date, number_of_candidates)
+        return Response(json.dumps(list_of_events))
+    except Exception as e:
+        print e
+
 
 if __name__ == '__main__':
     init_server()

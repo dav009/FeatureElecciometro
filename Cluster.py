@@ -25,8 +25,11 @@ class Clustering:
 
     def get_articles(self):
         cosine_scores = self.score_candidate_articles()
-        max_index, max_value = max(enumerate(cosine_scores), key=operator.itemgetter(1))
-        return max_index, max_value
+        try:
+            sorted_scores = sorted(enumerate(cosine_scores), key=lambda score: score[1], reverse=True)
+            return sorted_scores
+        except Exception:
+            return list()
 
     def cosine_sim(self, v1, v2):
 
