@@ -39,7 +39,7 @@ class EventSearcher:
 
         list_of_url_score_tuples = list()
         for index, score in sorted_scores:
-            list_of_url_score_tuples.append({"score":score, "url":articles[index]['url']})
+            list_of_url_score_tuples.append({"score":score,"title":articles[index]['title'], "url":articles[index]['url']})
 
         list_of_url_score_tuples = list_of_url_score_tuples[:number_of_candidates]
 
