@@ -6,8 +6,11 @@ from news_sources import RssFeeder, CaracolRadioRssSource, TiempoRssSource
 from flask import Flask, request, Response
 from EventSearcher import EventSearcher
 
+from twitter_tools.bot_classifier import BotClassifier
+
 app = Flask(__name__)
 event_searcher = EventSearcher()
+classifier = BotClassifier()
 
 def init_server():
 
@@ -30,6 +33,22 @@ def get_event():
 
         list_of_events = event_searcher.get_event(words, date, number_of_candidates)
         return Response(json.dumps(list_of_events))
+    except Exception as e:
+        print e
+
+@app.route("/bot_classifier")
+def classify_bot():
+    try:
+        user = request.args['user']
+        print user
+
+        classification_result = classifier.classify(user)
+
+        print classification_result
+
+        result = {"bot":classification_result[0][1], "human":classification_result[0][0]}
+
+        return Response(json.dumps(result))
     except Exception as e:
         print e
 
