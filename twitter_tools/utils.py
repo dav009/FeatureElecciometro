@@ -6,12 +6,12 @@ class TwitterUtils:
 
     def __init__(self):
 
-        self.api_key = ""
-        self.api_sec = ""
-        self.owner_id = ""
+        self.api_key = "gHiQxK1Yk8MXTlLm7DrZ6Q"
+        self.api_sec = "xxF9XSPtJz5oIq6tn1G1IZKyIc7lBEJYJmy4zY2mU"
+        self.owner_id = "80185886"
 
-        self.access_token = ""
-        self.secret_token = ""
+        self.access_token = "80185886-lB1qiIX7oPFelzghJ4EWJRbz3IOHwmhtYFt2dCMAU"
+        self.secret_token = "NbBsABpWIPqyHrJoBOW5zMRsKh1XtT6kPGwlPHGWQIc9I"
 
         self.api = Twitter(auth=OAuth(self.access_token, self.secret_token,
                        self.api_key, self.api_sec))

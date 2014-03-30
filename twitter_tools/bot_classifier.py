@@ -3,6 +3,7 @@ import utils
 import math
 from sklearn.linear_model import LogisticRegression
 import json
+import os
 from sklearn import svm
 
 def entropy(labels):
@@ -47,7 +48,10 @@ class BotClassifier:
         """
         trains the classifier by reading from a json file in the repo.
         """
-        json_training_file = json_data=open("training_vectors.json").read()
+        path = os.path.abspath(__file__)
+        dir_path = os.path.dirname(path)
+
+        json_training_file = json_data=open(dir_path+"/training_vectors.json").read()
         training_data = json.loads(json_training_file)
 
         self.classifier.fit(training_data['vectors'], training_data['labels'])
@@ -137,6 +141,3 @@ class BotClassifier:
         """
         list_of_set_of_hash_tags = self.twitter.get_all_hash_tags_by_user(user)
         return list_of_set_of_hash_tags
-
-classifier = BotClassifier()
-classifier.classify("leonidasEsteban")
